@@ -1,9 +1,23 @@
-package main
+// Copyright (c) quickfixengine.org  All rights reserved.
+//
+// This file may be distributed under the terms of the quickfixengine.org
+// license as defined by quickfixengine.org and appearing in the file
+// LICENSE included in the packaging of this file.
+//
+// This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING
+// THE WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A
+// PARTICULAR PURPOSE.
+//
+// See http://www.quickfixengine.org/LICENSE for licensing information.
+//
+// Contact ask@quickfixengine.org if any conditions of this licensing
+// are not clear to you.
+
+package ordermatch
 
 import (
 	"bufio"
 	"bytes"
-	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -22,6 +36,7 @@ import (
 	"github.com/quickfixgo/fix42/newordersingle"
 	"github.com/quickfixgo/fix42/ordercancelrequest"
 	"github.com/quickfixgo/quickfix"
+	"github.com/spf13/cobra"
 )
 
 //Application implements the quickfix.Application interface
@@ -217,30 +232,55 @@ func (a *Application) updateOrder(order internal.Order, status enum.OrdStatus) {
 
 }
 
-func main() {
-	flag.Parse()
+const (
+	usage = "ordermatch"
+	short = "Start an ordermatcher"
+	long  = "Start an ordermatcher."
+)
 
-	cfgFileName := path.Join("config", "ordermatch.cfg")
-	if flag.NArg() > 0 {
-		cfgFileName = flag.Arg(0)
+var (
+	// Cmd is the quote command.
+	Cmd = &cobra.Command{
+		Use:     usage,
+		Short:   short,
+		Long:    long,
+		Aliases: []string{"oms"},
+		Example: "qf ordermatch config/ordermatch.cfg",
+		RunE:    execute,
+	}
+)
+
+func execute(cmd *cobra.Command, args []string) error {
+	var cfgFileName string
+	argLen := len(args)
+	switch argLen {
+	case 0:
+		{
+			cfgFileName = path.Join("config", "ordermatch.cfg")
+		}
+	case 1:
+		{
+			cfgFileName = args[0]
+		}
+	default:
+		{
+			return fmt.Errorf("Incorrect argument number")
+		}
 	}
 
 	cfg, err := os.Open(cfgFileName)
 	if err != nil {
-		fmt.Printf("Error opening %v, %v\n", cfgFileName, err)
-		return
+		return fmt.Errorf("Error opening %v, %v\n", cfgFileName, err)
 	}
 	defer cfg.Close()
 	stringData, readErr := ioutil.ReadAll(cfg)
 	if readErr != nil {
-		fmt.Println("Error reading cfg,", readErr)
-		return
+		return fmt.Errorf("Error reading cfg: %s,", readErr)
 	}
 
 	appSettings, err := quickfix.ParseSettings(bytes.NewReader(stringData))
 	if err != nil {
-		fmt.Println("Error reading cfg,", err)
-		return
+		return fmt.Errorf("Error reading cfg: %s,", err)
 	}
 
 	logFactory := quickfix.NewScreenLogFactory()
@@ -249,14 +289,12 @@ func main() {
 	printConfig(bytes.NewReader(stringData))
 	acceptor, err := quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, logFactory)
 	if err != nil {
-		fmt.Printf("Unable to create Acceptor: %s\n", err)
-		return
+		return fmt.Errorf("Unable to create Acceptor: %s\n", err)
 	}
 
 	err = acceptor.Start()
 	if err != nil {
-		fmt.Printf("Unable to start Acceptor: %s\n", err)
-		return
+		return fmt.Errorf("Unable to start Acceptor: %s\n", err)
 	}
 
 	interrupt := make(chan os.Signal, 1)

@@ -10,7 +10,7 @@ A config file similar to the example config [here](../../config/executor.cfg) is
 The cli command usage takes the form of
 
 ```sh
-executor [CONFIG_PATH_FILENAME]
+qf executor [CONFIG_PATH_FILENAME]
 ```
 where CONFIG_PATH_FILENAME defaults to `config/executor.cfg`
 

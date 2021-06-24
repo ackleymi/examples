@@ -14,7 +14,7 @@ A config file similar to the example config [here](../../config/ordermatch.cfg) 
 The cli command usage takes the form of
 
 ```sh
-ordermatch [CONFIG_PATH_FILENAME]
+qf ordermatch [CONFIG_PATH_FILENAME]
 ```
 where CONFIG_PATH_FILENAME defaults to `config/ordermatch.cfg`
 

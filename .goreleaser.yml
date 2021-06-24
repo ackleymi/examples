@@ -1,7 +1,7 @@
 before:
   hooks:
     - go mod tidy
-builds:
+build:
   - goos:
       - linux
       - darwin
@@ -13,37 +13,10 @@ builds:
         goarch: 386
       - goos: windows
         goarch: 386
-    id: "executor"
-    main: ./cmd/executor
-    binary: executor
-  - goos:
-      - linux
-      - darwin
-      - windows
-    ignore:
-      - goos: linux
-        goarch: 386
-      - goos: darwin
-        goarch: 386
-      - goos: windows
-        goarch: 386
-    id: "tradeclient"
-    main: ./cmd/tradeclient
-    binary: tradeclient
-  - goos:
-      - linux
-      - darwin
-      - windows
-    ignore:
-      - goos: linux
-        goarch: 386
-      - goos: darwin
-        goarch: 386
-      - goos: windows
-        goarch: 386
-    id: "ordermatch"
-    main: ./cmd/ordermatch
-    binary: ordermatch
+    id: "qf"
+    binary: qf
+    ldflags:
+      - -s -X github.com/quickfixgo/examples/version.Version={{.Version}}
 
 archives:
   - replacements:
@@ -61,3 +34,33 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+
+brews:
+  - github:
+      owner: quickfixgo
+      name: homebrew-qf
+    homepage: "https://github.com/quickfixgo/examples"
+    description: "Example QuickFIX/Go Applications."
+
+    plist: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+        <dict>
+          <key>KeepAlive</key>
+          <dict>
+            <key>SuccessfulExit</key>
+            <false/>
+          </dict>
+          <key>Label</key>
+          <string>#{plist_name}</string>
+          <key>RunAtLoad</key>
+          <true/>
+          <key>WorkingDirectory</key>
+          <string>#{var}</string>
+          <key>StandardErrorPath</key>
+          <string>#{var}/log/qtrn.log</string>
+          <key>StandardOutPath</key>
+          <string>#{var}/log/qtrn.log</string>
+        </dict>
+      </plist>

@@ -12,7 +12,7 @@ A config file similar to the example config [here](../../config/tradeclient.cfg)
 The cli command usage takes the form of
 
 ```sh
-tradeclient [CONFIG_PATH_FILENAME]
+qf tradeclient [CONFIG_PATH_FILENAME]
 ```
 where CONFIG_PATH_FILENAME defaults to `config/tradeclient.cfg`
 

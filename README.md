@@ -13,7 +13,7 @@ All examples have been ported from [QuickFIX](http://quickfixengine.org)
 ### Build From Source
 To build and run the examples, you will first need [Go](https://www.golang.org) installed on your machine
 
-Next, clone this repository with `git clone git@github.com:quickfixgo/examples.git`. This project uses go modules, so you just need to type `make build`. This will compile the examples executables in the `./bin` dir in your local copy of the repo. If this exits with exit status 0, then everything is working! You may need to pull the module deps with `go mod download`.
+Next, clone this repository with `git clone git@github.com:quickfixgo/examples.git`. This project uses go modules, so you just need to type `make build`. This will compile the examples executable in the `./bin` dir in your local copy of the repo. If this exits with exit status 0, then everything is working! You may need to pull the module deps with `go mod download`.
 
 ```sh
 make build
@@ -21,7 +21,7 @@ make build
 
 ### Running the Examples
 
-Following installation, the examples can be found in `./bin`.  The examples are meant to be run in pairs- the TradeClient as a client of either the Executor or OrderMatch.  By default, the examples will load the default configurations named after the example apps provided in the `config/` root directory.  <i>i.e.</i>, running `./bin/tradeclient` will load the `config/tradeclient.cfg` configuration.  Each example can be run with a custom configuration as a command line argument (`./bin/tradeclient my_trade_client.cfg`).
+Following installation, the example binary can be found in `./bin`.  The examples are meant to be run in pairs- the TradeClient as a client of either the Executor or OrderMatcher.  By default, the examples will load the default configurations named after the example apps provided in the `config/` root directory.  <i>i.e.</i>, running `./bin/qf tradeclient` will load the `config/tradeclient.cfg` configuration.  Each example can be run with a custom configuration as a command line argument (`./bin/qf tradeclient my_trade_client.cfg`).
 
 ### Licensing
 
