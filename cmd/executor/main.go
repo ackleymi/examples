@@ -1,11 +1,16 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
 	"flag"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"path"
 	"syscall"
 
+	"github.com/fatih/color"
 	"github.com/quickfixgo/enum"
 	"github.com/quickfixgo/field"
 	"github.com/quickfixgo/quickfix"
@@ -475,8 +480,14 @@ func main() {
 		fmt.Printf("Error opening %v, %v\n", cfgFileName, err)
 		return
 	}
+	defer cfg.Close()
+	stringData, readErr := ioutil.ReadAll(cfg)
+	if readErr != nil {
+		fmt.Println("Error reading cfg,", readErr)
+		return
+	}
 
-	appSettings, err := quickfix.ParseSettings(cfg)
+	appSettings, err := quickfix.ParseSettings(bytes.NewReader(stringData))
 	if err != nil {
 		fmt.Println("Error reading cfg,", err)
 		return
@@ -485,6 +496,7 @@ func main() {
 	logFactory := quickfix.NewScreenLogFactory()
 	app := newExecutor()
 
+	printConfig(bytes.NewReader(stringData))
 	acceptor, err := quickfix.NewAcceptor(app, quickfix.NewMemoryStoreFactory(), appSettings, logFactory)
 	if err != nil {
 		fmt.Printf("Unable to create Acceptor: %s\n", err)
@@ -502,4 +514,19 @@ func main() {
 	<-interrupt
 
 	acceptor.Stop()
+}
+
+func printConfig(reader io.Reader) {
+	scanner := bufio.NewScanner(reader)
+	color.Set(color.Bold)
+	fmt.Println("Starting FIX acceptor with config:")
+	color.Unset()
+
+	color.Set(color.FgHiMagenta)
+	for scanner.Scan() {
+		line := scanner.Text()
+		fmt.Println(line)
+	}
+
+	color.Unset()
 }

@@ -1,11 +1,16 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
 	"flag"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"os"
 	"path"
 
+	"github.com/fatih/color"
 	"github.com/quickfixgo/examples/cmd/tradeclient/internal"
 	"github.com/quickfixgo/quickfix"
 )
@@ -56,8 +61,14 @@ func main() {
 		fmt.Printf("Error opening %v, %v\n", cfgFileName, err)
 		return
 	}
+	defer cfg.Close()
+	stringData, readErr := ioutil.ReadAll(cfg)
+	if readErr != nil {
+		fmt.Println("Error reading cfg,", readErr)
+		return
+	}
 
-	appSettings, err := quickfix.ParseSettings(cfg)
+	appSettings, err := quickfix.ParseSettings(bytes.NewReader(stringData))
 	if err != nil {
 		fmt.Println("Error reading cfg,", err)
 		return
@@ -82,6 +93,8 @@ func main() {
 		fmt.Printf("Unable to start Initiator: %s\n", err)
 		return
 	}
+
+	printConfig(bytes.NewReader(stringData))
 
 Loop:
 	for {
@@ -114,4 +127,19 @@ Loop:
 	}
 
 	initiator.Stop()
+}
+
+func printConfig(reader io.Reader) {
+	scanner := bufio.NewScanner(reader)
+	color.Set(color.Bold)
+	fmt.Println("Started FIX initiator with config:")
+	color.Unset()
+
+	color.Set(color.FgHiMagenta)
+	for scanner.Scan() {
+		line := scanner.Text()
+		fmt.Println(line)
+	}
+
+	color.Unset()
 }

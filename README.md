@@ -2,9 +2,9 @@
 
 [![Build Status](https://github.com/quickfixgo/examples/workflows/CI/badge.svg)](https://github.com/quickfixgo/examples/actions) [![GoDoc](https://godoc.org/github.com/quickfixgo/examples?status.png)](https://godoc.org/github.com/quickfixgo/examples) [![Go Report Card](https://goreportcard.com/badge/github.com/quickfixgo/examples)](https://goreportcard.com/report/github.com/quickfixgo/examples)
 
-* [TradeClient](cmd/tradeclient/README.md) is a simple console based trading client
-* [Executor](cmd/executor/README.md) is a server that fills every limit order it receives
-* [OrderMatch](cmd/ordermatch/README.md) is a primitive matching engine 
+* [TradeClient](cmd/tradeclient/README.md) is a simple FIX initiator console-based trading client
+* [Executor](cmd/executor/README.md) is a FIX acceptor service that fills every limit order it receives
+* [OrderMatch](cmd/ordermatch/README.md) is a primitive matching engine and FIX acceptor serice
 
 All examples have been ported from [QuickFIX](http://quickfixengine.org)
 

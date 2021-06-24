@@ -86,8 +86,9 @@ func (m Market) Display() {
 		fmt.Printf("%+v\n", bid)
 	}
 
-	fmt.Println()
 	fmt.Println("OFFERS:")
+	fmt.Println("-----")
+	fmt.Println()
 
 	for _, offer := range m.Offers.orders {
 		fmt.Printf("%+v\n", offer)

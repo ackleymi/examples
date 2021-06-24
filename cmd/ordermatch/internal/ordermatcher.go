@@ -17,15 +17,27 @@ func NewOrderMatcher() *OrderMatcher {
 func (m OrderMatcher) DisplayMarket(symbol string) {
 	if market, ok := m.markets[symbol]; ok {
 		market.Display()
+		return
 	}
+	fmt.Println("================")
+	fmt.Println("SYMBOL NOT FOUND")
+	fmt.Println("================")
 }
 
 func (m OrderMatcher) Display() {
-	fmt.Println("SYMBOLS:")
-	fmt.Println("--------")
-	for symbol := range m.markets {
-		fmt.Println(symbol)
+	hasMarkets := len(m.markets) > 0
+	if hasMarkets {
+		fmt.Println("===============")
+		fmt.Println("ACTIVE SYMBOLS:")
+		fmt.Println("===============")
+		for symbol := range m.markets {
+			fmt.Println(symbol)
+		}
+		return
 	}
+	fmt.Println("===========================")
+	fmt.Println("THERE ARE NO ACTIVE SYMBOLS")
+	fmt.Println("===========================")
 }
 
 func (m *OrderMatcher) Insert(order Order) {
