@@ -2,7 +2,7 @@
 Tradeclient is a simple FIX initiator console-based trading client
 
 ## Features
-* Send configurable NewOrderSingle, OrderCancelRequest, and MarketDataRequest messages on a FIX session to a remote server
+* Send configurable NewOrderSingle, OrderCancelRequest, and MarketDataRequest messages on a FIX session to a remote server 
 * Supports Buy/Sell/Short/Cross/Cross Short order sides 
 * Supports Market/Limit/Stop/Stop Limit order types
 * Supports Day/IOC/OPG/GTC/GTX time in force
