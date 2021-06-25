@@ -77,3 +77,10 @@ snapcrafts:
     description: Example QuickFIX/Go Applications.
     grade: stable
     confinement: strict
+    extra_files:
+    - source: bin/qf.wrapper
+      destination: qf.wrapper
+      mode: 0755
+    layout:
+      /etc/qf:
+        bind: $SNAP_DATA/etc
