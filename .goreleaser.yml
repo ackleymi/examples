@@ -43,6 +43,8 @@ brews:
       name: homebrew-qf
     homepage: "https://github.com/ackleymi/examples"
     description: "Example QuickFIX/Go Applications."
+    install: |
+      bin.install "qf"
 
     plist: |
       <?xml version="1.0" encoding="UTF-8"?>
