@@ -68,3 +68,12 @@ brews:
           <string>#{var}/log/qtrn.log</string>
         </dict>
       </plist>
+
+snapcrafts:
+  - name_template: "qf_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    name: quickfixgo-qf
+    publish: true
+    summary: Example QuickFIX/Go Applications.
+    description: Example QuickFIX/Go Applications.
+    grade: stable
+    confinement: strict
