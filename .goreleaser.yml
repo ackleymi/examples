@@ -16,10 +16,11 @@ builds:
     id: "qf"
     binary: qf
     ldflags:
-      - -s -X github.com/quickfixgo/examples/version.Version={{.Version}}
+      - -s -X github.com/ackleymi/examples/version.Version={{.Version}}
 
 archives:
-  - replacements:
+  - name_template: "qf_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    replacements:
       darwin: Darwin
       linux: Linux
       windows: Windows
@@ -38,9 +39,9 @@ changelog:
 brews:
   - name: qf
     tap:
-      owner: ackleymi
+      owner: homebrew-qf
       name: qf
-    homepage: "https://github.com/quickfixgo/examples"
+    homepage: "https://github.com/ackleymi/examples"
     description: "Example QuickFIX/Go Applications."
 
     plist: |
