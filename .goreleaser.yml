@@ -37,9 +37,10 @@ changelog:
       - '^test:'
 
 brews:
-  - tap:
-      owner: homebrew-qf
-      name: qf
+  - name: qf
+    tap:
+      owner: ackleymi
+      name: homebrew-qf
     homepage: "https://github.com/ackleymi/examples"
     description: "Example QuickFIX/Go Applications."
 
