@@ -38,14 +38,14 @@ jobs:
         env:
           SNAPCRAFT_TOKEN: ${{ secrets.SNAP_LOGIN_KEY }}
         run: |
-          snapcraft login --with <(echo "$SNAP_LOGIN_KEY")
+          snapcraft login --with <(echo "$SNAPCRAFT_TOKEN")
       - name: Install GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
           install-only: true
       - name: Run GoReleaser
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
         run: |
           if [[ $GITHUB_REF == refs/tags/* ]]
           then
