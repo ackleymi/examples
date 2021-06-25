@@ -48,9 +48,14 @@ make build
 ```
 Run the command `./bin/qf help` in your shell for the list of possible example subcommands.
 
-### From Snapcraft (linux)
+### From Snapcraft
+Linux OS users can install the examples through the snap store.
+```sh
+sudo snap install quickfixgo-qf
+```
+Run the command `qf help` in your shell for the list of possible example subcommands.
 
-### From Scoop (windows)
+### From Scoop
 Forthcoming..
 
 ### Docker Image
