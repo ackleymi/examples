@@ -37,8 +37,7 @@ changelog:
       - '^test:'
 
 brews:
-  - name: qf
-    tap:
+  - tap:
       owner: homebrew-qf
       name: qf
     homepage: "https://github.com/ackleymi/examples"
