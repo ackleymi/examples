@@ -56,7 +56,12 @@ sudo snap install quickfixgo-qf
 Run the command `qf help` in your shell for the list of possible example subcommands.
 
 ### From Scoop
-Forthcoming..
+Windows users can install the examples via the Scoop package manager.
+```sh
+scoop bucket add auth0 https://github.com/auth0/scoop-auth0-cli.git
+scoop install auth0
+```
+Run the command `qf help` in your shell for the list of possible example subcommands.
 
 ### Docker Image
 Forthcoming..

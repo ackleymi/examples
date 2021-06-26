@@ -69,6 +69,20 @@ brews:
         </dict>
       </plist>
 
+dockers:
+  - goos: linux
+    goarch: amd64
+    image_templates:
+      - "quickfixgo/qf:latest"
+      - "quickfixgo/qf:{{ .Tag }}"
+    dockerfile: release.Dockerfile
+
+    build_flag_templates:
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.name=qf"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+
 snapcrafts:
   - name_template: "qf_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
     name: quickfixgo-qf

@@ -39,6 +39,13 @@ jobs:
           SNAPCRAFT_TOKEN: ${{ secrets.SNAP_LOGIN_KEY }}
         run: |
           snapcraft login --with <(echo "$SNAPCRAFT_TOKEN")
+      - name: Docker Login
+        if: success()
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASS }}
+        run: |
+          echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
       - name: Install GoReleaser
         uses: goreleaser/goreleaser-action@v2
         with:
