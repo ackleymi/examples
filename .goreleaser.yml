@@ -76,7 +76,8 @@ dockers:
       - "quickfixgo/qf:latest"
       - "quickfixgo/qf:{{ .Tag }}"
     dockerfile: release.Dockerfile
-
+    extra_files:
+    - config
     build_flag_templates:
       - "--label=org.opencontainers.image.created={{.Date}}"
       - "--label=org.opencontainers.image.name=qf"

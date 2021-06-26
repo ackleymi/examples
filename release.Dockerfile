@@ -1,5 +1,4 @@
 FROM golang:alpine
-
-COPY qf /qf
-
+ADD config config
+ADD qf /qf
 ENTRYPOINT ["/qf"]
