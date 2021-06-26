@@ -45,7 +45,7 @@ brews:
     description: "Example QuickFIX/Go Applications."
     install: |
       bin.install "qf"
-
+    caveats: "Thanks for installing the Quickfix/Go examples"
     plist: |
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -80,3 +80,12 @@ snapcrafts:
     layout:
       /etc/qf:
         bind: $SNAP_DATA/etc
+scoop:
+    name: qf
+    bucket:
+      owner: ackleymi
+      name: scoop-qf
+    commit_msg_template: "Scoop manifest update for {{ .ProjectName }} version {{ .Tag }}"
+    homepage: https://github.com/ackleymi/examples
+    description: Example QuickFIX/Go Applications.
+    post_install: ["Write-Host 'Thanks for installing the Quickfix/Go examples'"]
