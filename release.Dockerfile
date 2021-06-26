@@ -1,6 +1,7 @@
 FROM golang:alpine
 
-RUN ls
+RUN ls bin
+RUN ls src
 
 ADD config config
 
